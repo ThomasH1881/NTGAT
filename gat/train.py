@@ -230,19 +230,19 @@ if __name__ == '__main__':
                         help="which GPU to use. Set -1 to use CPU.")
     parser.add_argument("--epochs", type=int, default=500,
                         help="number of training epochs")
-    parser.add_argument("--num-heads", type=int, default=2,
+    parser.add_argument("--num-heads", type=int, default=8,          # 2 for Reddit
                         help="number of hidden attention heads")
     parser.add_argument("--num-out-heads", type=int, default=1,
                         help="number of output attention heads")
     parser.add_argument("--num-layers", type=int, default=1,
                         help="number of hidden layers")
-    parser.add_argument("--num-hidden", type=int, default=64,
+    parser.add_argument("--num-hidden", type=int, default=8,         # 64 for Reddit
                         help="number of hidden units")
     parser.add_argument("--residual", action="store_true", default=False,
                         help="use residual connection")
-    parser.add_argument("--in-drop", type=float, default=0,
+    parser.add_argument("--in-drop", type=float, default=0.6,        # 0 for Reddit
                         help="input feature dropout")
-    parser.add_argument("--attn-drop", type=float, default=0,
+    parser.add_argument("--attn-drop", type=float, default=0.6,      # 0 for Reddit
                         help="attention dropout")
     parser.add_argument("--lr", type=float, default=0.005,
                         help="learning rate")
