@@ -23,6 +23,8 @@ After GPU running, my_edge_softmax will generate traces. (set saving directory a
 
 Move traces to gat/'simulation with traces', and run gat/'simulation with traces'/main.py for simulation with node tailoring.
 
+gat/'simulation with traces'/main.py is the same with Simulator/main.py except for loading different data, both module.py are the same.
+
 
 # Simulator:
 
