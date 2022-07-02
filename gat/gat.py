@@ -86,8 +86,8 @@ class my_GAT(nn.Module):
             # due to multi-head, the in_dim = num_hidden * num_heads
             self.gat_layers.append(my_GATConv(
                 num_hidden * heads[l-1], num_hidden, heads[l],
-                feat_drop, attn_drop, negative_slope, residual, self.activation, lowerbound = self.lowerbound*(l+1), trunc_k=self.trunc_k*(0.9**l)))
-        # output projection
+                feat_drop, attn_drop, negative_slope, residual, self.activation, lowerbound = self.lowerbound*(l+1), trunc_k=self.trunc_k*(0.9**l)))  # increases lowerbound and decrease trunc_k by layer
+        # output projection      no node tailoring
         self.gat_layers.append(GATConv(
             num_hidden * heads[-2], num_classes, heads[-1],
             feat_drop, attn_drop, negative_slope, residual, None))
