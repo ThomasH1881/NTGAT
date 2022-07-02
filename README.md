@@ -18,12 +18,15 @@ run gat/train.py for experiments on Cora/Citeseer/Pubmed/Reddit datasets.
 
 run ogb/ogbn-arxiv/gat.py for experiment on ogbn-arxiv dataset.
 
+  
 
 After GPU running, my_edge_softmax will generate traces. (set saving directory at dgl/ops/edge_softmax.py line 186,187)
 
 Move traces to gat/'simulation with traces', and run gat/'simulation with traces'/main.py for simulation with node tailoring.
 
-gat/'simulation with traces'/main.py is the same with Simulator/main.py except for loading different data, both module.py are the same.
+  
+
+gat/'simulation with traces'/main.py is the same with Simulator/main.py except for loading different data, annotation can be find in Simulator/main.py.
 
 
 # Simulator:
