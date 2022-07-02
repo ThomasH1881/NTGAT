@@ -21,7 +21,7 @@ run ogb/ogbn-arxiv/gat.py for experiment on ogbn-arxiv dataset.
 
 After GPU running, my_edge_softmax will generate traces. (set saving directory at dgl/ops/edge_softmax.py line 186,187)
 
-Move traces to gat/'simulation with traces', and run gat/'simulation with traces'/main.py for simulation.
+Move traces to gat/'simulation with traces', and run gat/'simulation with traces'/main.py for simulation with node tailoring.
 
 
 # Simulator:
