@@ -182,9 +182,9 @@ def my_edge_softmax(graph, logits, lowerbound, trunc_k = 0.9, eids=ALL, norm_by=
         #fullgraph.append(graph.find_edges(graph.in_edges(i, form='eid'))[0].cpu().tolist())
         tmp += n                                                # just count the sum of tailored degrees
     
-    #if trunc_k == 0.675:                                       # save the traces of a layer
-        #numpy.save('/home/nfs_data/hwt/gat/saved/arxiv2_full',fullgraph)
-        #numpy.save('/home/nfs_data/hwt/gat/saved/arxiv2_trunc',truncgraph)
+    #if trunc_k == 0.675:                                       # save the traces of one layer
+        #numpy.save('....../arxiv_full',fullgraph)              # set directory to save traces
+        #numpy.save('....../arxiv_trunc',truncgraph)            # set directory to save traces
     
     
     # some test codes for dynamic tailoring, it doesn't work very well in test.
