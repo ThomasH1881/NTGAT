@@ -153,39 +153,41 @@ import torch
 import random
 def my_edge_softmax(graph, logits, lowerbound, trunc_k = 0.9, eids=ALL, norm_by='dst'):
     tmp = 0
-    #print(logits.size())
+    #print(logits.size())           # logits tensor stores the attention coefficients.
 
     print("my_edge_softmax running")
     print("lowerbound:", lowerbound)
     print("trunc_k:", trunc_k)
     
-    
+    # fullgraph and truncgraph store the trace of fetching each node, they are saved for simulator.
     #fullgraph = []
     #truncgraph = []
     
     for i in range(graph.num_nodes()):
         d = len(graph.in_edges(i, form='eid'))
         n = trunc(d, lowerbound, trunc_k)
-        index = graph.in_edges(i, form='eid').type(torch.int64)
+        index = graph.in_edges(i, form='eid').type(torch.int64)      # index of edges in logits matrix
+        
         
         #tensor = logits[index].sum(dim=1)
-        #tensor = logits[index].sum(dim=1).squeeze()
-        #argsort = tensor.argsort()
-        #mask = argsort[0:n]
+        tensor = logits[index].sum(dim=1).squeeze()             # depending on the dimension, logits may need squeeze()
+        argsort = tensor.argsort()                              # sort the tensor
+        mask = argsort[0:n]                                     # tailor n attention coefficients
 
-        mask = random.sample(range(0,d),n)
+        #mask = random.sample(range(0,d),n)                     # random sampling
         
-        logits[index[mask]] = float('-inf')
+        logits[index[mask]] = float('-inf')                     # here we set the tailored attention coefficients to -inf, and they will become zero after softmax.
                 
-        #truncgraph.append(graph.find_edges(graph.in_edges(i, form='eid')[argsort[n:]])[0].cpu().tolist())
+        #truncgraph.append(graph.find_edges(graph.in_edges(i, form='eid')[argsort[n:]])[0].cpu().tolist())     # add the trace to truncgraph and fullgraph
         #fullgraph.append(graph.find_edges(graph.in_edges(i, form='eid'))[0].cpu().tolist())
-        tmp += n
+        tmp += n                                                # just count the sum of tailored degrees
     
-    #if trunc_k == 0.675:
+    #if trunc_k == 0.675:                                       # save the traces of a layer
         #numpy.save('/home/nfs_data/hwt/gat/saved/arxiv2_full',fullgraph)
         #numpy.save('/home/nfs_data/hwt/gat/saved/arxiv2_trunc',truncgraph)
     
     
+    # some test codes for dynamic tailoring, it doesn't work very well in test.
     '''
     for i in range(graph.num_nodes()):
         index = graph.in_edges(i, form='eid').type(torch.int64)
@@ -198,6 +200,8 @@ def my_edge_softmax(graph, logits, lowerbound, trunc_k = 0.9, eids=ALL, norm_by=
         logits[index[mask]] = float('-inf')
     '''
     print(tmp)
+    
+    # below is the same as original edgesoftmax
     
     if not is_all(eids):
         eids = astype(eids, graph.idtype)
@@ -228,6 +232,8 @@ def trunc(n):
     else:
         return int((n - 400) * 0.8)
 '''
+
+# Tailoring function
 
 # 0.1x + 0.9n = 200     x = 2000 - 9n                
 def trunc(n, lowerbound = 5, trunc_k = 0.9):

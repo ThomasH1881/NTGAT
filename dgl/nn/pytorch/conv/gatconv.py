@@ -630,17 +630,27 @@ class my_GATConv(nn.Module):
             graph.apply_edges(fn.u_add_v('el', 'er', 'e'))
             e = self.leaky_relu(graph.edata.pop('e'))
             # compute softmax
-            #print(e.shape)
+            
+            
+            # compute my_edge_softmax
             print("my_GAT running")
             #print(e.shape)
+            
+            # tailor per head
+            
             #for i in range(e.shape[1]):
                 #e[:,i,:] = my_edge_softmax(graph, e[:,i,:])
             #graph.edata['a'] = self.attn_drop(e)
+            
+            # tailor by the sum of each head
             
             graph.edata['a'] = self.attn_drop(my_edge_softmax(graph, e, self.lowerbound, self.trunc_k))
             #graph.edata['a'] = self.attn_drop(edge_softmax(graph, e))
             print(graph.edata['a'].shape)
             
+            # This part is to calculate the sum of the largest x0% attention coefficients.
+            # randomly sample 1000 nodes with degrees larger than 500
+            # Can be modified to sample other results.
             '''
             import torch
             import math
