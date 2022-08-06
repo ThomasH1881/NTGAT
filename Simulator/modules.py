@@ -262,24 +262,3 @@ class DDRModel:  # Alveo U200 have 4 DDRs, each has 5 channels
         else:
             self.time_stamp = self.time_stamp + 1
 
-'''
-class Multiplier:
-
-    def __init__(self, DSP):
-        self.DSP = DSP
-
-    def matrix_multipy(self, num_nodes, input_size, output_size):
-
-        return
-
-    def vector_multipy(self, input_size, output_size):
-
-        return
-
-    def attention_multipy(self, input_size, outputs_size, heads = 0):
-
-        return
-
-    #def
-'''
-
