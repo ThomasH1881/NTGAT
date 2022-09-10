@@ -34,7 +34,7 @@ def accuracy(logits, labels):
 def evaluate(model, features, labels, mask):
     model.eval()
     with torch.no_grad():
-        
+        '''
         with profile(
         activities = [
             torch.profiler.ProfilerActivity.CPU,
